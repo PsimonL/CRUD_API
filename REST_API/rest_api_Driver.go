@@ -1,6 +1,7 @@
 package REST_API
 
 import (
+	"errors"
 	"fmt"
 	"github.com/gin-gonic/gin"
 	"net/http"
@@ -29,6 +30,19 @@ func POSTCars(ctx *gin.Context) { // CREATE
 	}
 	carBrands = append(carBrands, newCarBrand)
 	ctx.IndentedJSON(http.StatusCreated, newCarBrand)
+}
+
+func GETCars(ctx *gin.Context) { // READ
+	ctx.IndentedJSON(http.StatusOK, carBrands)
+}
+
+func GETCarByID(id string) (*CarCompany, error) {
+	for i, b := range carBrands {
+		if b.ID == id {
+			return &carBrands[i], nil
+		}
+	}
+	return nil, errors.New("Car company not found")
 }
 func DriverCode() {
 	fmt.Println("Working REST_API")
