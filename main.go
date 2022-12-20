@@ -16,7 +16,7 @@ func main() {
 	fmt.Printf("%s - 2\n", choice_map[2])
 	fmt.Print("Your choice: ")
 	//fmt.Scan(&i)
-	i = 2
+	i = 1
 	if i == 1 {
 		fmt.Println("You picked 1st option:", choice_map[i])
 		fmt.Println()
