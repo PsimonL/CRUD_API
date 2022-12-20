@@ -44,6 +44,45 @@ func GETCarByID(id string) (*CarCompany, error) {
 	}
 	return nil, errors.New("Car company not found")
 }
+func PATCHcars(ctx *gin.Context) {
+	id, check := ctx.GetQuery("id")
+	if !check {
+		ctx.IndentedJSON(http.StatusBadRequest, gin.H{"message": "Missing ID"})
+		return
+	}
+
+	// return JSON with certain id of car brand
+	// =========================================================
+	var err error
+	var car *CarCompany
+	for i, c := range carBrands {
+		if c.ID == id {
+			car, err = &carBrands[i], nil
+			break
+		} else {
+			car, err = nil, errors.New("")
+		}
+
+	}
+	// =========================================================
+	if err != nil {
+		ctx.IndentedJSON(http.StatusNotFound, gin.H{"message": "Car company not found!"})
+		return
+	}
+	car.PatchNumber = car.PatchNumber + 1
+
+	ctx.IndentedJSON(http.StatusOK, car)
+}
+
+func DELETEcars(ctx *gin.Context) {
+	// Go is a garbage collected language.
+	// You are not supposed to, and you cannot delete objects from memory.
+	// It is the garbage collector's duty and responsibility to do so, and it does this automatically.
+	// The garbage collector will properly remove objects from memory when they become unreachable.
+	// https://stackoverflow.com/questions/42066797/how-to-delete-struct-object-in-go
+	// -----------------------------------------------------------------------------------------------
+	// delete from map by ID ---> remove(map, ID) if ID exists
+}
 func DriverCode() {
 	fmt.Println("Working REST_API")
 	//// Resources:
