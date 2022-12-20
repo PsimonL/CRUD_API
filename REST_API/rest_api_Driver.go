@@ -3,6 +3,7 @@ package REST_API
 import (
 	"fmt"
 	"github.com/gin-gonic/gin"
+	"net/http"
 )
 
 type CarCompany struct { // https://appdividend.com/2022/06/22/golang-serialize-json-string/
@@ -21,6 +22,14 @@ var carBrands = []CarCompany{
 	{ID: "5", Name: "Toyota", Founder: "Kiichiro Toyoda", Date: 1957, PatchNumber: 10},
 }
 
+func POSTCars(ctx *gin.Context) { // CREATE
+	var newCarBrand CarCompany
+	if err := ctx.BindJSON(&newCarBrand); err != nil {
+		return // return ctx https://stackoverflow.com/questions/45239409/empty-return-in-func-with-return-value-in-golang
+	}
+	carBrands = append(carBrands, newCarBrand)
+	ctx.IndentedJSON(http.StatusCreated, newCarBrand)
+}
 func DriverCode() {
 	fmt.Println("Working REST_API")
 	//// Resources:
