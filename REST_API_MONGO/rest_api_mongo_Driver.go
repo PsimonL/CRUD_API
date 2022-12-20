@@ -6,6 +6,10 @@ import (	"fmt"
 			//"gopkg.in/mgo.v2/bson"
 	)
 
+// https://www.mongodb.com/docs/drivers/go/current/fundamentals/crud/read-operations/retrieve/
+// https://gin-gonic.com/docs/
+// https://www.makeuseof.com/golang-crud-api-mongodb-gin/
+
 func rest_api_mongo_Driver(){
 	fmt.Println("Working Mongo driver code")
 	router := gin.Default()
